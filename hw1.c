@@ -50,8 +50,9 @@ main(int argc, char **argv)
 		}
 		else if(child_pid == 0){ //Fork worked.
 			execv("/bin/ls", words);
+			//execvp (words[0], words);
 		}
-		else{
+		else{ //Parent
 			int hold = wait(NULL);
 			assert(hold >= 0);
 		}

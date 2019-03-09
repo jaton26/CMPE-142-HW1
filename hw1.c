@@ -12,12 +12,10 @@ int
 main(int argc, char **argv)
 {
 	char *line = NULL;
-	//char **words = (char **)malloc( sizeof(void *)*MAX/2);
 	int i = 0;
 	int j = 0;
 	size_t linesize = 0;
 	ssize_t linelen;
-	
 	
 	while ((linelen = getline(&line, &linesize, stdin)) != -1){
 		if (strncmp("exit", line, 4) == 0) {
@@ -49,8 +47,10 @@ main(int argc, char **argv)
 			perror("Unable to fork");
 		}
 		else if(child_pid == 0){ //Fork worked.
+			
 			execv("/bin/ls", words);
 			//execvp (words[0], words);
+			fprintf(stderr, "poopy\n");
 		}
 		else{ //Parent
 			int hold = wait(NULL);

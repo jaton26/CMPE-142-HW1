@@ -8,58 +8,69 @@
 #include <sys/wait.h>
 #define MAX 128
 
+
 int
 main(int argc, char **argv)
 {
-	char *line = NULL;
-	//char **words = (char **)malloc( sizeof(void *)*MAX/2);
-	int i = 0;
-	int j = 0;
+	char* line = NULL;
+	size_t length;
+	size_t linelen;
 	size_t linesize = 0;
-	ssize_t linelen;
-	
-	
-	while ((linelen = getline(&line, &linesize, stdin)) != -1){
-		if (strncmp("exit", line, 4) == 0) {
-			//user wants to exit
+	char* array[MAX]; //I had troubles using malloc and calloc. 
+
+	//An infinite loop until the user enters "exit". 
+	while(1){
+		printf("HW1 Shell >> ");
+		linelen = getline(&line, &linesize, stdin);
+		length = strlen(line);
+
+		//Deleting the '\n'.
+		if(line[length - 1] == '\n'){
+			line[length - 1] = '\0';
+		}
+
+		//This will exit the code if the user types 'exit'.  
+		if(strcmp(line, "exit") == 0){
 			exit(0);
 		}
 
-		//fwrite (line, linelen, 1, stdout); //This repeats what the 								user inputed. 
+		//Making everything NULL so the dummy values aren't stored. 
+		int i = 0;
+		while(array[i] != NULL){
+			array[i] = NULL;
+			i++;
+		}	
 		
-		//Parsing the line
-		char **words = (char **)malloc( sizeof(void *)*MAX/2);
+		//Storing each string into an array. 
 		i = 0;
-		while((*(words + i) = strsep(&line, " ")) != NULL){
+		char* token = NULL;
+		while((token = strsep(&line, " ")) != NULL){
+			array[i] = token;
 			i++;
 		}
-		j = 0;
-
-		//Testing to see whether the parsing worked. 
-		while(words[j] != NULL){
-			printf("%s ", *(words+j) );
-			putchar('\n');
-			j++;
-		}
-
 		
+		//Testing to see if string are stored correctly. 
+		printf("array[0] = %s, array[1] = %s, arrar[2] = %s, len=%d\n", array[0], array[1], array[2], strlen(array[0]));
+
 		//fork
 		int child_pid = fork();
 		if(child_pid == -1){ //Fork didn't work. 
 			perror("Unable to fork");
 		}
 		else if(child_pid == 0){ //Fork worked.
-			execv("/bin/ls", words);
-			//execvp (words[0], words);
+			execv(array[0], array);
 		}
 		else{ //Parent
 			int hold = wait(NULL);
 			assert(hold >= 0);
-		}
-		//if child, exec
+		}	
+		
+		//Making everything NULL again at the end.  
+		i = 0;
+		while(array[i] != NULL){
+			array[i] = NULL;
+			i++;
+		}	
+				
 	}
-	
-	free(line);
-	if (ferror(stdin))
-		err(1, "getline");
 }

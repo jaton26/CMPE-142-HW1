@@ -18,6 +18,8 @@ main(int argc, char **argv)
 	size_t linesize = 0;
 	char* array[MAX]; //I had troubles using malloc and calloc. 
 
+	char* path[MAX];
+
 	//An infinite loop until the user enters "exit". 
 	while(1){
 		printf("HW1 Shell >> ");
@@ -31,7 +33,7 @@ main(int argc, char **argv)
 
 		//This will exit the code if the user types 'exit'.  
 		if(strcmp(line, "exit") == 0){
-			exit(0);
+			exit();
 		}
 
 		//Making everything NULL so the dummy values aren't stored. 
@@ -47,6 +49,17 @@ main(int argc, char **argv)
 		while((token = strsep(&line, " ")) != NULL){
 			array[i] = token;
 			i++;
+		}
+		
+		//Exit the shell if user typed "exit".
+		if(strcmp(array[0], "exit") == 0){
+			exit();
+		}
+
+		//If user is doing "cd" command, go into that file. 
+		if(!strcmp(array[0], "cd")){
+			chdir(array[1]);
+			continue;
 		}
 		
 		//Testing to see if string are stored correctly. 

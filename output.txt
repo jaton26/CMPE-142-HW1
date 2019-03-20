@@ -1,3 +1,13 @@
-/bin/ls -la /tmp
-/bin/cat hw1.c
-exit
+total 60
+drwxr-xr-x  4 jonathan jonathan  4096 Mar 18 22:16 .
+drwxr-xr-x 21 jonathan jonathan  4096 Mar 18 22:08 ..
+drwxr-xr-x  8 jonathan jonathan  4096 Mar 14 14:44 .git
+-rwxr-xr-x  1 jonathan jonathan 17456 Mar 18 22:14 hw12
+-rw-r--r--  1 jonathan jonathan  1146 Mar 14 14:51 hw1-2.c
+-rw-r--r--  1 jonathan jonathan  2818 Mar 18 22:16 hw12.c
+-rw-r--r--  1 jonathan jonathan  3648 Mar 18 17:04 hw13.c
+-rw-r--r--  1 jonathan jonathan  1695 Mar 18 20:27 hw1.c
+-rw-r--r--  1 jonathan jonathan   923 Mar 14 14:51 jon-jonHw1.c
+-rw-------  1 jonathan jonathan     0 Mar 18 22:16 output.txt
+-rw-r--r--  1 jonathan jonathan    39 Mar  5 16:46 README.md
+drwxr-xr-x  2 jonathan jonathan  4096 Mar 18 21:30 tests

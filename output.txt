@@ -1,3 +1,0 @@
-/bin/ls -la /tmp
-/bin/cat hw1.c
-exit
